@@ -1,0 +1,59 @@
+@import "./common.scss";
+
+#login_wrap {
+    position: relative;
+    width: $login_width;
+    height: $login_height;
+    // background-color: aqua;
+    background-image: url('../assets/images/dog.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    .login_section {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 300px;
+        min-height: 400px;
+        width: $login_width / 2;
+        height: $login_height / 2;
+        max-width: 400px;
+        max-height: 450px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 16px;
+        box-sizing: border-box;
+        background: rgba(255, 255, 255, 0.5);
+
+        .login_title {
+            @include font_title();
+            text-align: center;
+        }
+
+        .login_input_wrap {
+            width: 100%;
+            .item {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                .item_sub {
+                    display: flex;
+                    align-items: center;
+                    font-size: $font_12;
+                }
+            }
+            > button {
+                position: absolute;
+                bottom: 16px;
+                width: calc(100% - 32px);
+                height: 50px;
+                border-radius: 50px;
+                background-color: $main_color;
+                color: $white_color;
+                font-size: $font_16;
+                font-weight: 700;
+            }
+        }
+    }
+}
