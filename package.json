@@ -8,10 +8,18 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-brands-svg-icons": "^6.1.1",
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "axios": "^0.26.1",
     "core-js": "^3.6.5",
+    "jquery": "^3.6.0",
     "vue": "^3.0.0",
     "vue-axios": "^3.4.1",
+    "vue-meta": "^3.0.0-alpha.10",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
@@ -34,6 +42,9 @@
     "sass-loader": "^8.0.2"
   },
   "eslintConfig": {
+    "globals": {
+      "todoEventBus": "readable"
+    },
     "root": true,
     "env": {
       "node": true
@@ -58,7 +69,8 @@
           "named": "never",
           "asyncArrow": "always"
         }
-      ]
+      ],
+      "indent": ["off", 2]
     }
   },
   "browserslist": [

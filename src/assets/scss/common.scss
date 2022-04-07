@@ -1,10 +1,25 @@
 $main_color: blue;
-$white_color: white;
+$white_color: #FFFFFF;
+$gray_color: #CCC;
+$bright_sky_blue: #51B0DC;
+$dark_sky_blue: #4A9ABF;
+$deep_dark_sky_blue: #257FAC;
+$bg_3192BF: #3192BF;
+$bg_25A2D0: #25A2D0;
+$bg_25AAD0: #25AAD0;
+$bg_0093BD: #0093BD;
+$bg_3182BF: #3182BF;
+$bg_EAF7FD: #EAF7FD;
+$bg_DBDBDB: #DBDBDB;
+$bg_2F7FA6: #2F7FA6;
+$bg_878787: #878787;
 
 $login_width: 100%;
 $login_height: 100vh;
 
 // 폰트
+$font_35: 35px;
+$font_30: 30px;
 $font_20: 20px;
 $font_18: 18px;
 $font_16: 16px;
@@ -13,10 +28,22 @@ $font_12: 12px;
 
 @mixin font_title {
     width: 100%;
+    font-family: 'NanumSquareExtraBold', sans-serif;
     font-size: $font_20;
     font-weight: 700;
     color: #202020;
     margin-bottom: 40px;
+}
+
+@mixin font_a_link {
+    display: inline-block;
+    color: $white_color;
+    padding: 8px 0px 7px 10px;
+    transition: color 0.3s ease;
+    font-family: 'NanumSquareExtraBold', sans-serif;
+    &:hover {
+        color: $gray_color;
+    }
 }
 
 

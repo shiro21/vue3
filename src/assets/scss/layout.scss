@@ -1,0 +1,47 @@
+/*
+    @media
+    min-width : 모바일 우선할 경우
+    max-width : 데스크탑을 우선할 경우
+*/
+
+#home_header, #home_nav, #home_title, #home_contents, #home_footer {
+    .container {
+        width: 1200px;
+        margin: 0px auto;
+    }
+}
+
+@media screen and(max-width: 1220px) {
+    #home_title, #home_header, #home_nav, #home_contents, #home_footer {
+        .container {
+            width: 100%;
+            .row {
+                padding: 0px 15px;
+            }
+        }
+    }
+}
+
+@media screen and(max-width: 1024px) {
+
+}
+
+@media screen and(max-width: 960px) {
+
+}
+
+@media screen and(max-width: 768px) {
+
+}
+
+@media screen and(max-width: 600px) {
+
+}
+
+@media screen and(max-width: 480px) {
+
+}
+
+@media screen and(max-width: 320px) {
+
+}
