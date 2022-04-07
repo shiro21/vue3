@@ -17,5 +17,3 @@ npm i --save @fortawesome/vue-fontawesome@prerelease@2.0.6
 npm i --save @fortawesome/vue-fontawesome@2.0.6
 
 
-https://wtss.tistory.com/221#
-https://www.youtube.com/watch?v=ADxbGlwhl_s
