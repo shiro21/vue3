@@ -118,10 +118,25 @@
           <article class="column" :class="[`col${i + 1}`]" v-for="(item, i) in items" :key="item">
             <h4 class="col_title">{{item.title}}</h4>
             <p class="col_description">{{item.description}}</p>
-            <div class="menu">
+            <div class="menu" v-if="item.menus">
               <ul>
                 <li v-for="menu in item.menus" :key="menu"><a href="#">{{menu.menu}} <fa class="icon" :icon="['fas', menu.icon]" /></a></li>
               </ul>
+            </div>
+
+            <div class="notice" v-if="item.notices">
+              <h5>Notice1</h5>
+              <ul>
+                <li v-for="notice in item.notices" :key="notice"><a href="#">{{notice}}</a></li>
+              </ul>
+              <a href="#" class="more" title="더 보기">More <fa class="plus" :icon="['fas', 'plus-circle']" /></a>
+            </div>
+            <div class="notice2 mt15" v-if="item.notices2">
+              <h5>Notice2</h5>
+              <ul>
+                <li v-for="notice in item.notices2" :key="notice"><a href="#">{{notice}}</a></li>
+              </ul>
+              <a href="#" class="more" title="더 보기">More <fa class="plus" :icon="['fas', 'plus-circle']" /></a>
             </div>
           </article>
         </section>
@@ -194,8 +209,20 @@ export default {
           ]
         },
         {
-          title: 'Menu1',
-          description: 'Box-Shadow를 이용한 마우스 오버 효과 메뉴'
+          title: 'Notice',
+          description: '게시판 영역의 한줄, 두줄 효과 게시판입니다.',
+          notices: [
+            "이 줄은 한 줄 효과입니다. 이 줄은 한 줄 효과입니다.",
+            "이 줄은 한 줄 효과입니다. 이 줄은 한 줄 효과입니다.",
+            "이 줄은 한 줄 효과입니다. 이 줄은 한 줄 효과입니다.",
+            "이 줄은 한 줄 효과입니다. 이 줄은 한 줄 효과입니다."
+          ],
+          notices2: [
+            "이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다.",
+            "이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다.",
+            "이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다.",
+            "이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다. 이 줄은 두 줄 효과입니다."
+          ]
         },
         {
           title: 'Menu2',

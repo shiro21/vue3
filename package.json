@@ -17,6 +17,7 @@
     "axios": "^0.26.1",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
+    "sass-migrator": "^1.5.4",
     "vue": "^3.0.0",
     "vue-axios": "^3.4.1",
     "vue-meta": "^3.0.0-alpha.10",
@@ -70,7 +71,10 @@
           "asyncArrow": "always"
         }
       ],
-      "indent": ["off", 2]
+      "indent": [
+        "off",
+        2
+      ]
     }
   },
   "browserslist": [

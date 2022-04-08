@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "./common.scss";
 
 #login_wrap {
@@ -16,8 +17,8 @@
         transform: translate(-50%, -50%);
         min-width: 300px;
         min-height: 400px;
-        width: $login_width / 2;
-        height: $login_height / 2;
+        width: math.div($login_width, 2);
+        height: math.div($login_height, 2);
         max-width: 400px;
         max-height: 450px;
         background-color: white;

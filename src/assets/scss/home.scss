@@ -269,6 +269,56 @@ body {
                         }
                     }
                 }
+                .notice, .notice2 {
+                    position: relative;
+                    > h5 {
+                        font-size: $font_14;
+                        color: $bg_2F7FA6;
+                        padding-bottom: 5px;
+                    }
+                    > ul {
+                        > li {
+                            position: relative;
+                            padding-left: 8px;
+                            margin-bottom: 5px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            &:before {
+                                position: absolute;
+                                content: '';
+                                width: 3px;
+                                height: 3px;
+                                top: 6px;
+                                left: 0px;
+                                background: $bg_449CE2;
+                            }
+                        }
+                    }
+                    .more {
+                        position: absolute;
+                        top: 3px;
+                        right: 0px;
+                        color: $bg_878787;
+                        text-transform: uppercase;
+                        font-size: $font_10;
+                    }
+                }
+                .notice {
+                    > ul {
+                        > li {
+                            white-space: nowrap;
+                        }
+                    }
+                }
+                .notice2 {
+                    > ul {
+                        > li {
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 2;
+                        }
+                    }
+                }
             }
             > .col3, > .col6, > .col9 {
                 border-bottom: 0px;
@@ -357,7 +407,18 @@ body {
 }
 
 @media screen and(max-width: 768px) {
-
+    #home_contents {
+        .container {
+            grid-template-columns: 1fr;
+            #contents_center {
+                border-top: 1px solid $bg_DBDBDB;
+                border-left: 0px;
+            }
+            #contents_right {
+                grid-column: auto;
+            }
+        }
+    }
 }
 
 @media screen and(max-width: 600px) {
@@ -396,16 +457,51 @@ body {
 
     #home_contents {
         .container {
-            grid-template-columns: 1fr;
-            #contents_center {
-                border-top: 1px solid $bg_DBDBDB;
-                border-left: 0px;
-            }
-            #contents_right {
-                grid-column: auto;
+            #contents_left {
+                .col1 {
+                    padding: 0px;
+                    border-bottom: 0px;
+                    .col_title {
+                        display: none;
+                    }
+                    .col_description {
+                        display: none;
+                    }
+                    .menu {
+                        > ul {
+                            width: 100%;
+                            display: flex;
+                            flex-wrap: wrap;
+                            > li {
+                                width: 33.3333%;
+                                text-align: center;
+                                border-right: 1px solid $bg_DBDBDB;
+                                box-sizing: border-box;
+                                &:nth-child(3n) {
+                                    border-right: 0px;
+                                }
+                                > a {
+                                    color: $white_color;
+                                    text-shadow: 0 0 5px rgba(0,0,0,0.7);
+                                    &:hover {
+                                        box-shadow: none;
+                                        background: rgba(36,130,174,0.3);
+                                    }
+                                }
+                                .icon {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+                .col2 {
+                    background: $white_color;
+                }
             }
         }
     }
+
 }
 
 @media screen and(max-width: 480px) {
