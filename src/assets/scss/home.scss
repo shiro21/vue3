@@ -1,5 +1,6 @@
 @import "./common.scss";
 
+
 body {
     background: url('../assets/images/header_bg.jpg') repeat-x center top;
 }
@@ -223,7 +224,7 @@ body {
 #home_contents {
     .container {
         display: grid;
-        grid-template-columns: 250px 1fr 250px;
+        grid-template-columns: 250px calc(100% - 500px) 250px;
         border-right: 1px solid $bg_DBDBDB;
         border-left: 1px solid $bg_DBDBDB;
         > section {
@@ -333,16 +334,81 @@ body {
             border-right: 1px solid $bg_DBDBDB;
             border-left: 1px solid $bg_DBDBDB;
             min-height: 1300px;
+            > article {
+                .video_contents {
+                    position: relative;
+                    width: 100%;
+                    padding-bottom: 56.25%;
+                    > iframe {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
         }
 
         #contents_right {
             width: 100%;
+            > article {
+                .side {
+                    > figure {
+                        > img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
 #home_footer {
     border-top: 1px solid $bg_DBDBDB;
+}
+
+// 라이트박스 관련
+.lightgallery-vue {
+    display: flex;
+    flex-wrap: wrap;
+    .gallery-item {
+        position: relative;
+        width: 20%;
+        padding: 4px;
+        box-sizing: border-box;
+        overflow: hidden;
+        cursor: pointer;
+        > img {
+            width: 100%;
+            height: 100%;
+        }
+        > em {
+            position: absolute;
+            bottom: -30px;
+            left: 4px;
+            width: calc(100% - 8px);
+            text-align: center;
+            opacity: 1;
+            transition: all .3s ease;
+            background-color: rgba(0, 0, 0, 0.77);
+            color: $white_color;
+        }
+        &:hover > em {
+            bottom: 0px;
+            background: rgba(0,0,0,.57);
+            font-weight: 700;
+        }
+        &:nth-child(1):hover > img { filter: blur(2px); }
+        &:nth-child(2):hover > img { filter: brightness(50%); }
+        &:nth-child(3):hover > img { filter: contrast(10%); }
+        &:nth-child(4):hover > img { filter: grayscale(100%); }
+        &:nth-child(5):hover > img { filter: hue-rotate(120deg); }
+        &:nth-child(6):hover > img { filter: invert(100%); }
+        &:nth-child(7):hover > img { filter: opacity(10%); }
+        &:nth-child(8):hover > img { filter: saturate(10%); }
+        &:nth-child(9):hover > img { filter: sepia(120%); }
+        &:nth-child(10):hover > img { filter: sepia(120%) hue-rotate(120deg); }
+    }
 }
 
 @media screen and(max-width: 1220px) {
@@ -362,10 +428,26 @@ body {
             border-left: 0px;
         }
     }
+
+    .lightgallery-vue {
+        .gallery-item {
+            width: 25%;
+            &:nth-child(5n) {
+                display: none;
+            }
+        }
+    }
 }
 
 @media screen and(max-width: 1024px) {
-
+    .lightgallery-vue {
+        .gallery-item {
+            width: 33.3333%;
+            &:nth-child(5) {
+                display: unset;
+            }
+        }
+    }
 }
 
 @media screen and(max-width: 960px) {
@@ -399,8 +481,17 @@ body {
                 border-right: 0px;
             }
             #contents_right {
+                display: flex;
                 grid-column: auto / span 2;
                 border-top: 1px solid $bg_DBDBDB;
+                > article {
+                    .side {
+                        > figure {
+                            > img {
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -501,7 +592,14 @@ body {
             }
         }
     }
-
+    .lightgallery-vue {
+        .gallery-item {
+            width: 50%;
+            &:nth-child(5) {
+                display: none;
+            }
+        }
+    }
 }
 
 @media screen and(max-width: 480px) {
@@ -525,4 +623,135 @@ body {
             }
         }
     }
+    .lightgallery-vue {
+        .gallery-item {
+            width: 100%;
+        }
+    }
+}
+
+// 해상도에 따른 이미지 이미지
+.blog {
+    figure {
+        img {
+            width: 100%;
+        }
+        .img_retina {
+            display: none;
+        }
+    }
+}
+
+.blog2 {
+    .img_bg {
+        background-size: cover;
+        text-align: center;
+        padding: 30px;
+    }
+}
+
+.blog3 {
+    .img_bg2 {
+        background-image: url('../assets/images/blog4_@1.jpg');
+        background-size: cover;
+        text-align: center;
+        padding: 30px;
+    }
+}
+@media only screen and(-webkit-min-device-pixel-ratio: 1.5), only screen and(min-device-pixel-ratio: 1.5), only screen and(min-resolution: 1.5dppx) {
+    .blog {
+        figure {
+            img {
+                width: 100%;
+            }
+            .img_retina {
+                display: initial;
+            }
+            .img_normal {
+                display: none;
+            }
+        }
+    }
+
+    .blog3 {
+        .img_bg2 {
+            background-image: url('../assets/images/blog4_@1.jpg');
+        }
+    }
+}
+
+// 슬라이드 관련
+.carousel__item {
+    width: 100%;
+    > figure {
+        position: relative;
+        > img {
+            width: 100%;
+        }
+        > figcaption {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            padding: 20px;
+            text-align: left;
+            background-color: rgba(0, 0, 0, 0.5);
+            font-size: 18px;
+            color: $white_color;
+            > em {
+                font-size: 28px;
+                font-weight: 700;
+                text-transform: uppercase;
+                font-family: 'Abel', sans-serif;
+                opacity: 0;
+                transition: all .85s ease;
+                transform: translateX(50px);
+            }
+            > span {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                opacity: 0;
+                transition: all .85s .2s ease;
+                transform: translateX(50px);
+            }
+        }
+    }
+}
+
+.carousel__slide--active {
+    .carousel__item {
+        > figure {
+            > figcaption {
+                > em {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                > span {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        }
+    }
+}
+
+.carousel__prev {
+    left: 10px;
+}
+.carousel__next {
+    right: 10px;
+}
+
+// 라이트 박스 관련
+.lg-thumb, .lg-group {
+    display: none;
+}
+
+.lg-content {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }

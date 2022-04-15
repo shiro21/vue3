@@ -138,22 +138,99 @@
               </ul>
               <a href="#" class="more" title="더 보기">More <fa class="plus" :icon="['fas', 'plus-circle']" /></a>
             </div>
+
+            <div class="blog" v-if="item.figures">
+              <h5 class="ir_su">Image</h5>
+              <!-- figure = 사진 이미지 다이어그램 등을 감싸는 태그 -->
+              <figure v-for="figure in item.figures" :key="figure">
+                <img :class="figure.class" :src="figure.image" :alt="figure.alt">
+                <figcaption :class="figure.class">{{figure.caption}}</figcaption>
+              </figure>
+            </div>
+
+            <!-- 바인딩으로 하는방법....... . . . .  ..  -->
+            <div class="blog2 mt15" v-if="item.title === 'Blog'">
+              <div class="img_bg" v-bind:style="{backgroundImage: 'url('+ item.figures2[0].image +')'}">
+                <h5>Image2</h5>
+              </div>
+              <p>이미지를 SCSS쪽으로 바인딩하는 방법 ?</p>
+            </div>
+
+            <div class="blog3 mt15" v-if="item.title === 'Blog'">
+              <div class="img_bg2">
+                <h5>Image3</h5>
+              </div>
+              <p>반응형 웹 사이트 이미지 글입니다.</p>
+            </div>
           </article>
         </section>
         <!-- // contents_left -->
         <section id="contents_center">
           <h3 class="ir_su">반응형 사이트 가운데 컨텐츠</h3>
-          <article class="column" :class="[`col${i + 4}`]" v-for="(item, i) in [0,1,2]" :key="item">
-            <h4 class="col_title">Title {{i + 4}}</h4>
-            <p class="col_description">이곳은 설명부분입니다.</p>
+          <article class="column" :class="[`col${i + 4}`]" v-for="(item, i) in items2" :key="item">
+            <h4 class="col_title">{{item.title}}</h4>
+
+            <!-- 이미지 슬라이드 -->
+            <div class="image_slider" slideWidth="100%" v-if="item.title === 'Carousel Slider'">
+              <carousel :items-to-show="1" :wrapAround="true" :autoplay="5000">
+                <slide v-for="slide in item.menus" :key="slide">
+                  <div class="carousel__item">
+                    <figure>
+                      <img :src="slide.image" :alt="slide.alt" />
+                      <figcaption><em>{{slide.caption}}</em><span>{{slide.description}}</span></figcaption>
+                    </figure>
+                  </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <pagination />
+                </template>
+              </carousel>
+            </div>
+
+            <div class="light_gallery" v-if="item.title === 'Blend Effect'">
+              <lightgallery
+                  :settings="{ speed: 500, plugins: plugins }"
+                  :onInit="onInit"
+                  :onBeforeSlide="onBeforeSlide"
+              >
+                <a
+                    v-for="item in lightItems"
+                    :key="item.id"
+                    :data-lg-size="item.size"
+                    className="gallery-item"
+                    :data-src="item.src"
+                >
+                    <img className="img-responsive" :src="item.thumb" :alt="item.alt" />
+                    <em>{{item.subscription}}</em>
+                </a>
+              </lightgallery>
+            </div>
+
+            <div class="video_contents" v-if="item.title === 'Video'">
+              <!-- 비디오 직업 넣기 -->
+              <!-- <video autoplay="autoplay" controls="controls" loop="loop">
+                <source src="비디오.mp4" type="video/mp4" />
+              </video> -->
+
+              <!-- width값 height값 삭제하기 allowfullscreen="" title제거 -->
+              <iframe src="https://www.youtube.com/embed/i4UiNe0j9_g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+            </div>
           </article>
         </section>
         <!-- // contents_center -->
         <section id="contents_right">
           <h3 class="ir_su">반응형 사이트 오른쪽 컨텐츠</h3>
-          <article class="column" :class="[`col${i + 7}`]" v-for="(item, i) in [0,1,2]" :key="item">
-            <h4 class="col_title">Title {{i + 7}}</h4>
-            <p class="col_description">이곳은 설명부분입니다.</p>
+          <article class="column" :class="[`col${i + 7}`]" v-for="(item, i) in items3" :key="item">
+            <h4 class="col_title">{{item.title}}</h4>
+            <p class="col_description">{{item.description}}</p>
+
+            <div class="side">
+              <figure>
+                <img :src="item.image" :alt="item.alt">
+              </figure>
+            </div>
           </article>
         </section>
         <!-- // contents_right -->
@@ -172,11 +249,118 @@
 
 <script>
 import $ from 'jquery'
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import Lightgallery from 'lightgallery/vue'
+import lgThumbnail from 'lightgallery/plugins/thumbnail'
+import lgZoom from 'lightgallery/plugins/zoom'
+
+// If you are using scss you can skip the css imports below and use scss instead
+import 'lightgallery/scss/lightgallery.scss'
+
+const lightGallery = null
 
 export default {
   name: 'Home',
+  components: {
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
+    Lightgallery
+  },
+  watch: {
+    items(newVal, oldVal) {
+        this.$nextTick(() => {
+            lightGallery.refresh()
+        })
+    }
+  },
   data() {
     return {
+      plugins: [lgThumbnail, lgZoom],
+      lightItems: [
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light01_s.jpg'),
+              thumb: require('../assets/images/light01.jpg'),
+              subscription: 'blur',
+              alt: '이미지입니다'
+            },
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light02_s.jpg'),
+              thumb: require('../assets/images/light02.jpg'),
+              subscription: 'brightness',
+              alt: '이미지입니다'
+            },
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light03_s.jpg'),
+              thumb: require('../assets/images/light03.jpg'),
+              subscription: 'contrast',
+              alt: '이미지입니다'
+            },
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light04_s.jpg'),
+              thumb: require('../assets/images/light04.jpg'),
+              subscription: 'grayscale',
+              alt: '이미지입니다'
+            },
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light05_s.jpg'),
+              thumb: require('../assets/images/light05.jpg'),
+              subscription: 'hur-rotate',
+              alt: '이미지입니다'
+            },
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light06_s.jpg'),
+              thumb: require('../assets/images/light06.jpg'),
+              subscription: 'invert',
+              alt: '이미지입니다'
+            },
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light07_s.jpg'),
+              thumb: require('../assets/images/light07.jpg'),
+              subscription: 'opacity',
+              alt: '이미지입니다'
+            },
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light08_s.jpg'),
+              thumb: require('../assets/images/light08.jpg'),
+              subscription: 'saturate',
+              alt: '이미지입니다'
+            },
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light09_s.jpg'),
+              thumb: require('../assets/images/light09.jpg'),
+              subscription: 'sepia',
+              alt: '이미지입니다'
+            },
+            {
+              id: '1',
+              size: '1',
+              src: require('../assets/images/light10_s.jpg'),
+              thumb: require('../assets/images/light10.jpg'),
+              subscription: 'Mix',
+              alt: '이미지입니다'
+            }
+      ],
       items: [
         {
           title: 'Menu',
@@ -225,13 +409,93 @@ export default {
           ]
         },
         {
-          title: 'Menu2',
-          description: 'Box-Shadow를 이용한 마우스 오버 효과 메뉴'
+          title: 'Blog',
+          description: '해상도에 따라 이미지 다르게 표현하기',
+          figures: [
+            {
+              image: require('../assets/images/blog1_@1.jpg'),
+              alt: 'normal image',
+              class: 'img_normal',
+              caption: '반응형 웹 사이트 이미지 글입니다.'
+            },
+            {
+              image: require('../assets/images/blog1_@2.jpg'),
+              alt: 'retina image',
+              class: 'img_retina',
+              caption: '반응형 웹 사이트 이미지 글입니다.'
+            }
+          ],
+          figures2: [
+            {
+              image: require('../assets/images/blog4_@1.jpg'),
+              alt: 'normal image',
+              class: 'img_normal',
+              caption: '반응형 웹 사이트 이미지 글입니다.'
+            },
+            {
+              image: require('../assets/images/blog4_@2.jpg'),
+              alt: 'retina image',
+              class: 'img_retina',
+              caption: '반응형 웹 사이트 이미지 글입니다.'
+            }
+          ]
+        }
+      ],
+      items2: [
+        {
+          title: 'Carousel Slider',
+          description: 'Carousel를 이용한 이미지 슬라이드 효과',
+          menus: [
+            {
+              image: require('../assets/images/slider01.jpg'),
+              alt: 'image1',
+              caption: 'Responsive Site',
+              description: '슬라이드 플러그인을 이용한 반응형 이미지 슬라이드'
+            },
+            {
+              image: require('../assets/images/slider02.jpg'),
+              alt: 'image1',
+              caption: 'Responsive Site',
+              description: '슬라이드 플러그인을 이용한 반응형 이미지 슬라이드'
+            },
+            {
+              image: require('../assets/images/slider03.jpg'),
+              alt: 'image1',
+              caption: 'Responsive Site',
+              description: '슬라이드 플러그인을 이용한 반응형 이미지 슬라이드'
+            }
+          ]
+        },
+        {
+          title: 'Blend Effect',
+          description: 'Carousel를 이용한 이미지 슬라이드 효과'
+        },
+        {
+          title: 'Video',
+          description: 'Video반응형'
+        }
+      ],
+      items3: [
+        {
+          title: 'Effect1',
+          description: 'CSS의 transform을 이용한 마우스 오버효과',
+          image: require('../assets/images/side1.jpg'),
+          alt: '이미지'
+        },
+        {
+          title: 'Effect2',
+          description: 'CSS의 transform을 이용한 마우스 오버효과',
+          image: require('../assets/images/side2.jpg'),
+          alt: '이미지'
+        },
+        {
+          title: 'Effect3',
+          description: 'CSS의 transform을 이용한 마우스 오버효과',
+          image: require('../assets/images/side3.jpg'),
+          alt: '이미지'
         }
       ]
     }
-  },
-  components: {
   },
   methods: {
     facebookMove() {
@@ -245,6 +509,9 @@ export default {
         e.preventDefault()
         window.open('https://twitter.com/intent/tweet?text=[%EA%B3%B5%EC%9C%A0]%20' + encodeURIComponent(document.URL) + '%20-%20' + encodeURIComponent(document.title), 'twittersharedialog', 'menubar=no, toolbar=no, resizable=yes, scrollbars=yes, height=300, width=600')
       })
+    },
+    onBeforeSlide: () => {
+      console.log('calling before slide')
     }
   }
 }
