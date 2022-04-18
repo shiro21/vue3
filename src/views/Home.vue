@@ -98,7 +98,7 @@
     <div class="container">
       <div class="title">
         <h2>"Shiro21 Site"</h2>
-        <a href="#" class="btn">
+        <a href="javascript:void(0)" class="btn" @click="btn()">
           <!-- aria-hidden : 안에 내용은 읽지 않고, 스크린리더에서만 읽을 수 있는 아이콘 설명이 들어간다. -->
           <fa class="angle-down" :icon="['fas', 'angle-down']" aria-hidden="true" />
           <span class="ir_su">전체메뉴 보기</span>
@@ -226,9 +226,32 @@
             <h4 class="col_title">{{item.title}}</h4>
             <p class="col_description">{{item.description}}</p>
 
-            <div class="side">
+            <div class="side side1" v-if="item.title === 'Effect1'">
+              <figure class="front">
+                <img :src="item.image" :alt="item.alt">
+              </figure>
+              <div class="back">
+                <span>안녕하세요<fa class="angle-down" :icon="['fas', 'heart']" aria-hidden="true" /></span>
+              </div>
+            </div>
+
+            <div class="side side2" v-if="item.title === 'Effect2'">
+              <figure class="front">
+                <img :src="item.image" :alt="item.alt">
+                <figcaption>Hover Effect</figcaption>
+              </figure>
+              <figure class="back">
+                <img :src="item.image2" :alt="item.alt">
+                <figcaption>Hover Effect</figcaption>
+              </figure>
+            </div>
+
+            <div class="side side3" v-if="item.title === 'Effect3'">
               <figure>
                 <img :src="item.image" :alt="item.alt">
+                <figcaption>
+                  <h3>Hover<em>Effect</em></h3>
+                </figcaption>
               </figure>
             </div>
           </article>
@@ -241,7 +264,25 @@
 
   <footer id="home_footer">
     <div class="container">
-      <h2>반응형 사이트 푸터</h2>
+      <div class="row">
+        <div class="footer">
+          <ul>
+            <li><a href="#">사이트 도움말</a></li>
+            <li><a href="#">사이트 이용약관</a></li>
+            <li><a href="#">사이트 운영원칙</a></li>
+            <li><a href="#"><strong>개인정보취급방침</strong></a></li>
+            <li><a href="#">책임의 한계와 법적고지</a></li>
+            <li><a href="#">게시중단요청서비스</a></li>
+            <li><a href="#">고객센터</a></li>
+          </ul>
+
+          <address>
+              Copyright ©
+              <a href="http://shiro21.tistory.com"><strong>shiro21</strong></a>
+              All Rights Reserved.
+          </address>
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -259,6 +300,13 @@ import lgZoom from 'lightgallery/plugins/zoom'
 import 'lightgallery/scss/lightgallery.scss'
 
 const lightGallery = null
+
+$(window).resize(function () {
+  var winWidth = $(window).width()
+  if (winWidth <= 600) {
+    $("#home_nav").removeAttr("style")
+  }
+})
 
 export default {
   name: 'Home',
@@ -486,6 +534,7 @@ export default {
           title: 'Effect2',
           description: 'CSS의 transform을 이용한 마우스 오버효과',
           image: require('../assets/images/side2.jpg'),
+          image2: require('../assets/images/side4.jpg'),
           alt: '이미지'
         },
         {
@@ -512,6 +561,16 @@ export default {
     },
     onBeforeSlide: () => {
       console.log('calling before slide')
+    },
+    btn() {
+      $("#home_nav").slideToggle()
+      $(".btn").toggleClass("open")
+
+      if ($(".btn").hasClass("open")) {
+        $(".btn").find("path").attr("d", "M352 352c-8.188 0-16.38-3.125-22.62-9.375L192 205.3l-137.4 137.4c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25C368.4 348.9 360.2 352 352 352z")
+      } else {
+        $(".btn").find("path").attr("d", "M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z")
+      }
     }
   }
 }
