@@ -1,4 +1,4 @@
-# korini-vue
+# 여러가지 이펙트
 
 ## Project setup
 ```
